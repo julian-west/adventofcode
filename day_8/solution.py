@@ -6,8 +6,8 @@ from typing import List, Tuple
 
 def load_input(file: str) -> List:
     """Load input into list of instructions"""
-    with open(file, "r") as f:
-        instructions = f.read().splitlines()
+    with open(file, "r") as input_file:
+        instructions = input_file.read().splitlines()
 
     return instructions
 
@@ -26,8 +26,7 @@ def part1(instructions: List) -> Tuple:
     while True:
         if index in memo:
             break
-        else:
-            memo.add(index)
+        memo.add(index)
 
         cmd, step = instructions[index].split()
 
@@ -78,10 +77,10 @@ def part2(instructions: List) -> int:
 
 
 if __name__ == "__main__":
-    instructions = load_input("input.txt")
+    boot_instructions = load_input("input.txt")
 
     # Part 1
-    print(part1(instructions))
+    print(part1(boot_instructions))
 
     # Part 2
-    print(part2(instructions))
+    print(part2(boot_instructions))
