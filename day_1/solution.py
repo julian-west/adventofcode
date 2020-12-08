@@ -9,9 +9,9 @@ import numpy as np
 
 def load_input(file):
     """Load text file into a list"""
-    input_list = []
-    with open(file, "r") as f:
-        lines = filter(None, f.read().split("\n"))
+
+    with open(file, "r") as input_file:
+        lines = filter(None, input_file.read().split("\n"))
         numbers = [int(line) for line in lines]
     return numbers
 
@@ -26,9 +26,12 @@ def find_numbers(numbers, n=3, target=2020):
 
 
 if __name__ == "__main__":
-    numbers = load_input("input.txt")
-    target_numbers = find_numbers(numbers, n=2, target=2020)
+    input_list = load_input("input.txt")
 
-    if isinstance(target_numbers, tuple):
-        print(f"the target numbers are: {target_numbers}")
-        print(f"the product of these numbers are {np.prod(target_numbers)}")
+    # Part 1
+    target_numbers = find_numbers(input_list, n=2, target=2020)
+    print(target_numbers, np.prod(target_numbers))
+
+    # Part 2
+    target_numbers = find_numbers(input_list, n=3, target=2020)
+    print(target_numbers, np.prod(target_numbers))
