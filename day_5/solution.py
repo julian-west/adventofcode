@@ -4,17 +4,18 @@ adventofcode.com/2020/day/5
 The first 7 characters denote the row position
 The last 3 characters denote the column position
 """
+from typing import List, Tuple
 import math
 
 
-def load_input(file):
+def load_input(file: str) -> List:
     with open(file, "r") as f:
         seats = f.read().splitlines()
 
     return seats
 
 
-def find_number(string, min, max):
+def find_number(string: str, min: int, max: int) -> int:
 
     for letter in string:
         if letter == "R" or letter == "B":
@@ -25,7 +26,7 @@ def find_number(string, min, max):
     return max
 
 
-def find_seat(string):
+def find_seat(string: str) -> Tuple:
 
     row_letters = string[:7]
     column_letters = string[7:]
@@ -36,11 +37,11 @@ def find_seat(string):
     return row, column
 
 
-def find_seat_id(row, column):
+def find_seat_id(row: int, column: int) -> int:
     return (row * 8) + column
 
 
-def find_highest_seat_id(seats):
+def find_highest_seat_id(seats: List) -> int:
 
     seat_ids = []
     for seat in seats:
@@ -51,7 +52,7 @@ def find_highest_seat_id(seats):
     return max(seat_ids)
 
 
-def get_possible_ids(max_rows=127, max_columns=7):
+def get_possible_ids(max_rows: int = 127, max_columns: int = 7) -> List:
 
     seat_ids = []
     for row in range(max_rows):
@@ -61,7 +62,7 @@ def get_possible_ids(max_rows=127, max_columns=7):
     return seat_ids
 
 
-def get_seat_ids(seats):
+def get_seat_ids(seats: List) -> List:
 
     seat_ids = []
     for seat in seats:
