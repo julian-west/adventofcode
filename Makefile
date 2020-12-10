@@ -12,5 +12,5 @@ clean-test:
 	rm -f .coverage
 	rm -fr htmlcov/
 
-test:
-	pytest
+# test:
+# 	pytest
