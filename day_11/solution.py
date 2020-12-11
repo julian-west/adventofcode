@@ -69,14 +69,14 @@ def fill_seats(
     for y in range(len(matrix)):
         for x in range(len(matrix[0])):
             if matrix[y][x] == "L":
-                adj_ocupied = neighbour_check_fn(matrix, x, y)
-                if adj_ocupied == 0:
+                adj_occupied = neighbour_check_fn(matrix, x, y)
+                if adj_occupied == 0:
                     new_layout[y][x] = "#"
                 else:
                     new_layout[y][x] = matrix[y][x]
             elif matrix[y][x] == "#":
-                adj_ocupied = neighbour_check_fn(matrix, x, y)
-                if adj_ocupied >= max_occ:
+                adj_occupied = neighbour_check_fn(matrix, x, y)
+                if adj_occupied >= max_occ:
                     new_layout[y][x] = "L"
                 else:
                     new_layout[y][x] = matrix[y][x]
@@ -86,7 +86,7 @@ def fill_seats(
     return new_layout
 
 
-def count_total_ocupied_seats(matrix: np.array) -> int:
+def count_total_occupied_seats(matrix: np.array) -> int:
     """Count total number of occupied seats"""
     return (matrix == "#").sum()
 
@@ -101,7 +101,7 @@ def run_simulation(matrix: np.array, max_occ: int, neighbour_check_fn: Callable)
     while True:
         new_matrix = fill_seats(old_matrix, max_occ, neighbour_check_fn)
         if np.array_equal(old_matrix, new_matrix):
-            return count_total_ocupied_seats(new_matrix)
+            return count_total_occupied_seats(new_matrix)
         old_matrix = new_matrix
 
 
