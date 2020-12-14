@@ -1,7 +1,7 @@
 """Tests for day 14"""
 
 import pytest
-from solution import load_input, apply_mask, part1
+from solution import load_input, apply_mask, part1, part2
 
 
 def test_load_input():
@@ -47,3 +47,16 @@ def test_part1():
     ]
 
     assert part1(input_instructions) == 165
+
+
+def test_part2():
+    """Test part2 function"""
+    assert (
+        part2(
+            mask_sequences=[
+                ("000000000000000000000000000000X1001X", 42, 100),
+                ("00000000000000000000000000000000X0XX", 26, 1),
+            ]
+        )
+        == 208
+    )
