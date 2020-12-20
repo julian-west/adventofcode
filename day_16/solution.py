@@ -2,6 +2,7 @@
 
 from typing import Tuple, Dict, List, Set
 import re
+import numpy as np
 
 
 def load_input(file: str) -> Tuple[Dict, List[int], List[List[int]]]:
@@ -21,11 +22,13 @@ def load_input(file: str) -> Tuple[Dict, List[int], List[List[int]]]:
             r"(^[^:]*):\s(\d+-\d+)\sor\s(\d+-\d+)", rule
         ).groups()
 
-        ranges = [
-            tuple(int(x) for x in region.split("-"))
-            for region in [first_region, second_region]
-        ]
-        rules_dict[field] = ranges
+        valid_numbers = set()
+        for region in [first_region, second_region]:
+            region_bounds = [int(x) for x in region.split("-")]
+            region_valid = set(range(region_bounds[0], region_bounds[1] + 1))
+            valid_numbers = valid_numbers.union(region_valid)
+
+        rules_dict[field] = valid_numbers
 
     # Process your ticket
     your_ticket = [int(x) for x in info_blocks[1][13:].split(",")]
@@ -41,9 +44,9 @@ def load_input(file: str) -> Tuple[Dict, List[int], List[List[int]]]:
 def find_valid_ints(rules: Dict) -> Set:
     """Find a set of integers which are valid given the set of rules"""
     valid_set = set()
-    for ranges in rules.values():
-        for bounds in ranges:
-            valid_set = valid_set.union(set(range(bounds[0], bounds[1] + 1)))
+    for valid_field_values in rules.values():
+        valid_set = valid_set.union(valid_field_values)
+
     return valid_set
 
 
@@ -60,8 +63,48 @@ def part1(rules: Dict, nearby_tickets: List[List[int]]) -> int:
     return sum(invalid_numbers)
 
 
+def part2(rules: Dict, your_ticket: List[int], nearby_tickets: List[List[int]]) -> int:
+    """Solve part 2"""
+
+    solved_fields = {}
+
+    valid_numbers = find_valid_ints(rules)
+
+    valid_nearby_tickets = []
+    for ticket in nearby_tickets:
+        if not set(ticket) - set(valid_numbers):
+            valid_nearby_tickets.append(ticket)
+
+    tickets = np.vstack((your_ticket, nearby_tickets))
+    ticket_field_unique_values = np.apply_along_axis(set, 0, tickets)
+
+    while len(rules) >= len(solved_fields):
+        still_to_solve = [ix for ix in range(len(rules)) if ix not in solved_fields]
+        for ix in range(tickets.shape[1]):
+            valid_fields = []
+            outstanding_fields = [
+                field for field in rules.keys() if field not in solved_fields.values()
+            ]
+            for field in outstanding_fields:
+                if (
+                    not (ticket_field_unique_values[ix] ^ rules[field])
+                    & ticket_field_unique_values[ix]
+                ):
+                    valid_fields.append(field)
+            if len(valid_fields) == 1:
+                solved_fields[ix] = valid_fields[0]
+
+        print(solved_fields)
+        print(len(outstanding_fields))
+
+    return solved_fields
+
+
 if __name__ == "__main__":
     rules_dict, your_ticket, nearby_tickets = load_input("input.txt")
 
     # Part 1
     print(part1(rules_dict, nearby_tickets))
+
+    # Part 2
+    print(part2(rules_dict, your_ticket, nearby_tickets))
