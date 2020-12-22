@@ -2,7 +2,7 @@
 
 import pytest
 
-from solution import load_input, find_valid_ints, part1
+from solution import load_input, find_valid_ints, part1, label_ticket
 
 
 @pytest.fixture
@@ -37,3 +37,18 @@ def test_find_valid_ints(test_input):
 def test_part1(test_input):
     """Test part1 function"""
     assert part1(test_input[0], test_input[2]) == 71
+
+
+@pytest.mark.parametrize(
+    "ticket, solved_fields, expected",
+    [
+        (
+            [1, 2, 3],
+            {1: "hello", 0: "world", 2: "bye"},
+            {"hello": 2, "world": 1, "bye": 3},
+        ),
+    ],
+)
+def test_label_ticket(ticket, solved_fields, expected):
+    """Test label_ticket"""
+    assert label_ticket(ticket, solved_fields) == expected

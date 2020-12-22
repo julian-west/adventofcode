@@ -63,28 +63,32 @@ def part1(rules: Dict, nearby_tickets: List[List[int]]) -> int:
     return sum(invalid_numbers)
 
 
+def label_ticket(ticket: List[int], solved_fields: Dict) -> Dict:
+    """Add correct labels to each number in a ticket"""
+    return {solved_fields[ix]: num for ix, num in enumerate(ticket)}
+
+
 def part2(rules: Dict, your_ticket: List[int], nearby_tickets: List[List[int]]) -> int:
     """Solve part 2"""
 
-    solved_fields = {}
-
+    "exclude tickets with invalid numbers"
     valid_numbers = find_valid_ints(rules)
-
     valid_nearby_tickets = []
     for ticket in nearby_tickets:
         if not set(ticket) - set(valid_numbers):
             valid_nearby_tickets.append(ticket)
 
-    tickets = np.vstack((your_ticket, nearby_tickets))
+    "solve the ticket fields"
+    tickets = np.vstack((your_ticket, valid_nearby_tickets))
     ticket_field_unique_values = np.apply_along_axis(set, 0, tickets)
 
-    while len(rules) >= len(solved_fields):
-        still_to_solve = [ix for ix in range(len(rules)) if ix not in solved_fields]
+    solved_fields = {}
+    while len(solved_fields) < len(rules):
         for ix in range(tickets.shape[1]):
-            valid_fields = []
             outstanding_fields = [
                 field for field in rules.keys() if field not in solved_fields.values()
             ]
+            valid_fields = []
             for field in outstanding_fields:
                 if (
                     not (ticket_field_unique_values[ix] ^ rules[field])
@@ -94,10 +98,11 @@ def part2(rules: Dict, your_ticket: List[int], nearby_tickets: List[List[int]]) 
             if len(valid_fields) == 1:
                 solved_fields[ix] = valid_fields[0]
 
-        print(solved_fields)
-        print(len(outstanding_fields))
+    labelled_ticket = label_ticket(your_ticket, solved_fields)
 
-    return solved_fields
+    return np.prod(
+        [value for field, value in labelled_ticket.items() if field[:9] == "departure"]
+    )
 
 
 if __name__ == "__main__":
