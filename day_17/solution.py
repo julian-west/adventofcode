@@ -2,6 +2,7 @@
 
 from typing import Tuple, Iterable
 from itertools import product
+from tqdm import tqdm
 import numpy as np
 
 
@@ -14,9 +15,9 @@ def find_neighbours(coords: Tuple, matrix_shape: Tuple) -> Iterable:
                 yield nb
 
 
-def make_matrix(input_grid: str) -> np.array:
-    """Turn input string into a 3d np.array"""
-    matrix = np.expand_dims([list(line) for line in input_grid.split()], axis=0)
+def make_matrix(input_grid: str, extra_dims: Tuple) -> np.array:
+    """Turn input string into a N dimensional np.array"""
+    matrix = np.expand_dims([list(row) for row in input_grid.split()], axis=extra_dims)
     enc_matrix = (matrix == "#").astype(np.int)
     return enc_matrix
 
@@ -40,10 +41,10 @@ def run_iteration(enc_matrix: np.array) -> np.array:
     return new_matrix
 
 
-def part_1(input_grid: str, iterations: int) -> int:
+def run_simulation(input_grid: str, iterations: int, extra_dims: Tuple) -> int:
     """Return number of active cubes after a number of iterations"""
-    matrix = make_matrix(input_grid)
-    for i in range(iterations):
+    matrix = make_matrix(input_grid, extra_dims)
+    for _ in tqdm(range(iterations)):
         matrix = run_iteration(matrix)
     return np.sum(matrix)
 
@@ -53,4 +54,7 @@ if __name__ == "__main__":
         input_str = input_file.read()
 
     # Part 1
-    print(part_1(input_str, iterations=6))
+    print(run_simulation(input_str, iterations=6, extra_dims=(0,)))
+
+    # Part 2
+    print(run_simulation(input_str, iterations=6, extra_dims=(0, 1)))
