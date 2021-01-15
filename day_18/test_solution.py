@@ -1,6 +1,15 @@
 """Day 18 tests"""
 
 import pytest
+from solution import inner_eval, evaluate
+
+
+@pytest.mark.parametrize(
+    "equation, expected", [("3 + 5", 8), ("8 * 4 + 2 + 4 * 2", 76), ("3 * 2 + 5", 11)]
+)
+def test_inner_eval(equation, expected):
+    """Test inner_eval function"""
+    assert inner_eval(equation) == expected
 
 
 @pytest.mark.parametrize(
@@ -14,4 +23,4 @@ import pytest
 )
 def test_evalute(raw_input, expected):
     """Test evaluate function"""
-    pass
+    assert evaluate(raw_input) == expected
