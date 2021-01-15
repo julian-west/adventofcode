@@ -1,5 +1,8 @@
 """Day 18 solution"""
 from typing import List
+import operator
+
+OPERATORS = {"+": operator.add, "*": operator.mul}
 
 
 def load_input(filepath: str) -> List:
@@ -12,6 +15,10 @@ def load_input(filepath: str) -> List:
 
 def evaluate(eq: str) -> int:
     """Evaluate an equation and return the result"""
+    inside_expressions = re.search(r"(\([^()]+\))", eq)
+    # base case for recursion
+    if not inside_expressions:
+        return inner_eval()  # TODO
     pass
 
 
