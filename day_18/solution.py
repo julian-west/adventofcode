@@ -1,8 +1,10 @@
 """Day 18 solution"""
-from typing import List, Dict
+from typing import List, Dict, Callable
+
 import re
 from collections import deque
 import operator
+from math import prod
 
 OPS = {"+": operator.add, "*": operator.mul}
 
@@ -14,7 +16,7 @@ def load_input(filepath: str) -> List:
     return data
 
 
-def inner_eval(eq: str, operators: Dict = OPS) -> int:
+def normal_precedence(eq: str, operators: Dict = OPS) -> int:
     """Evaluate a 'base' expression which does not contain any brackets"""
     tokens = deque(eq.split())
     result = int(tokens.popleft())
@@ -24,22 +26,22 @@ def inner_eval(eq: str, operators: Dict = OPS) -> int:
     return result
 
 
-def evaluate(eq: str) -> int:
+def change_precedence(eq):
+    """Change precedence so that '+' is evaluated before '*'"""
+    return prod(map(normal_precedence, eq.split("*")))
+
+
+def evaluate(eq: str, func: Callable) -> int:
     """Evaluate an equation and return the result"""
     inside_expressions = re.search(r"(\([^()]+\))", eq)
     # base case for recursion
     if not inside_expressions:
-        return inner_eval(eq)
+        return func(eq)
 
     inside_expression = inside_expressions.group(1)
-    brackets_result = inner_eval(inside_expression.strip("()"))
+    brackets_result = func(inside_expression.strip("()"))
     new_eq = eq.replace(inside_expression, str(brackets_result))
-    return evaluate(new_eq)
-
-
-def part_1(equations: List) -> int:
-    """Part 1 solution"""
-    return sum(evaluate(eq) for eq in equations)
+    return evaluate(new_eq, func)
 
 
 if __name__ == "__main__":
@@ -47,4 +49,7 @@ if __name__ == "__main__":
     equations = load_input("input.txt")
 
     # part 1
-    print(part_1(equations))
+    print(sum(evaluate(eq, normal_precedence) for eq in equations))
+
+    # part 2
+    print(sum(evaluate(eq, change_precedence) for eq in equations))
