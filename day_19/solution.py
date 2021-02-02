@@ -1,5 +1,5 @@
 """Day 19 Advent of Code"""
-from typing import List, Dict
+from typing import Dict, List
 
 
 def load_input(file: str) -> List:
@@ -20,7 +20,7 @@ def load_input(file: str) -> List:
     return rules, msgs
 
 
-def solve(num: int, rules: Dict, str_rules: Dict = {}) -> List:
+def solve(num: int, rules: Dict, str_rules: Dict) -> List:
     """Find all valid message possibilities"""
     rule_options = rules[num]
 
