@@ -1,8 +1,8 @@
 """Day 19 Advent of Code"""
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 
-def load_input(file: str) -> List:
+def load_input(file: str) -> Tuple:
     """load data input"""
     with open(file, "r") as input_file:
         data = input_file.readlines()
@@ -34,7 +34,7 @@ def solve(num: int, rules: Dict, str_rules: Dict) -> List:
 
     final = []
     for option in rule_options:
-        str_ops = []
+        str_ops: List[str] = []
         for rule in option:
             sub_ops = solve(int(rule), rules, str_rules)
 
