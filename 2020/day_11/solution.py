@@ -2,6 +2,7 @@
 Day 11 Advent of code
 """
 from typing import Callable
+
 import numpy as np
 
 

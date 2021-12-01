@@ -4,8 +4,8 @@ adventofcode.com/2020/day/5
 The first 7 characters denote the row position
 The last 3 characters denote the column position
 """
-from typing import List, Tuple
 import math
+from typing import List, Tuple
 
 
 def load_input(file: str) -> List:

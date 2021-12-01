@@ -1,7 +1,6 @@
 """Day 15 tests"""
 
 import pytest
-
 from solution import run_simulation
 
 

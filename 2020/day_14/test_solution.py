@@ -1,7 +1,7 @@
 """Tests for day 14"""
 
 import pytest
-from solution import load_input, apply_mask, part1, part2
+from solution import apply_mask, load_input, part1, part2
 
 
 def test_load_input():

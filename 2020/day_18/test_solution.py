@@ -1,7 +1,7 @@
 """Day 18 tests"""
 
 import pytest
-from solution import normal_precedence, evaluate, change_precedence
+from solution import change_precedence, evaluate, normal_precedence
 
 
 @pytest.mark.parametrize(

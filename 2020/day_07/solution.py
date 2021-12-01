@@ -3,8 +3,8 @@ Networkx graph implementation
 """
 
 import re
+
 import networkx as nx
-import matplotlib.pyplot as plt
 
 
 def load_input(file: str) -> list:
@@ -31,7 +31,7 @@ def create_edge_list(raw_rules: list) -> list:
         parent = parent.replace("bags", "").strip()
 
         for c in child.split(","):
-            pat = "\s(\d+)\s([a-z]+\s[a-z]+)"
+            pat = r"\s(\d+)\s([a-z]+\s[a-z]+)"
             if re.match(pat, c):
                 quantity, bag = re.match(pat, c).groups()
                 rules.append((parent, bag, int(quantity)))

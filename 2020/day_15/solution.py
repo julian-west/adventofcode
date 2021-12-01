@@ -4,7 +4,7 @@ from typing import List
 
 
 def run_simulation(starting_seq: List[int], rounds: int) -> int:
-    """Run the simulation """
+    """Run the simulation"""
     state = {
         "last_idx": dict(zip(starting_seq[:-1], range(len(starting_seq) - 1))),
         "last_num": starting_seq[-1],

@@ -1,8 +1,8 @@
 """ Day 14 adventofcode """
 
-from typing import List, Tuple
 import re
 from itertools import product
+from typing import List, Tuple
 
 
 def load_input(file: str) -> List[Tuple[str, int, int]]:

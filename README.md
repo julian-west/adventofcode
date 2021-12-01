@@ -11,6 +11,7 @@ Create Virtual Environment
 pyenv virtualenv 3.9.5 aoc
 pyenv activate aoc
 
+pip install pip --upgrade
 pip install -r requirements.txt
 ```
 
@@ -23,4 +24,3 @@ Running tests:
 ```
 pytest 2021
 ```
-

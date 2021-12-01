@@ -1,8 +1,9 @@
 """
 Day 10 adventofcode
 """
-from typing import List
 from collections import Counter
+from typing import List
+
 import numpy as np
 
 

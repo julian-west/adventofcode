@@ -7,7 +7,7 @@
 input="input.txt"
 input_sorted="$(sort -n < $input)"
 
-while IFS= read -r x_loop; do 
+while IFS= read -r x_loop; do
         while IFS= read -r y_loop; do
                 if [ $((x_loop+y_loop)) == 2020 ]; then
                         echo "$((x_loop*y_loop))"
@@ -19,7 +19,7 @@ done <<< "$input_sorted"
 
 # Part 2
 
-while IFS= read -r x_loop; do 
+while IFS= read -r x_loop; do
         while IFS= read -r y_loop; do
                 while IFS= read -r z_loop; do
                         if [ $((x_loop+y_loop+z_loop)) == 2020 ]; then

@@ -34,4 +34,3 @@ actual_sum=$(echo "${seat_ids[@]}" | paste -sd + - | bc)
 
 # your seat id is theoretical sum minus actual sum (as there are no missing seats)
 echo `expr $theoretical_sum - $actual_sum`
-

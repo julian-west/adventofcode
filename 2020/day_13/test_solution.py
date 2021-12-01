@@ -2,15 +2,17 @@
 Tests for day 13
 """
 from typing import List
+
 import pytest
 from solution import part1, part2
 
+
 def test_part1():
     """Test part1 function"""
-    assert part1(
-        earliest_time = 939,
-        bus_ids = ["7", "13", "x", "x", "59", "x", "31", "19"]
-    ) == 295
+    assert (
+        part1(earliest_time=939, bus_ids=["7", "13", "x", "x", "59", "x", "31", "19"])
+        == 295
+    )
 
 
 @pytest.mark.parametrize(

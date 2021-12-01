@@ -1,7 +1,7 @@
 """
 Day 12 adventofcode
 """
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
 
 
 def load_input(file: str) -> List[Tuple[str, int]]:

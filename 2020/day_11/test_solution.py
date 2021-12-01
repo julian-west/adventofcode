@@ -2,15 +2,15 @@
 Tests for day 11
 """
 from typing import Callable
-import pytest
-import numpy as np
 
+import numpy as np
+import pytest
 from solution import (
+    count_total_occupied_seats,
+    fill_seats,
     get_adjacent_occupied_seats,
     get_visible_neighbours,
     is_seat_visible,
-    fill_seats,
-    count_total_occupied_seats,
     run_simulation,
 )
 

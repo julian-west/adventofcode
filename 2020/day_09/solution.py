@@ -1,8 +1,9 @@
 """
 Day 9 solution
 """
-from typing import List
 import itertools
+from typing import List
+
 import numpy as np
 
 

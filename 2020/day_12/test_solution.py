@@ -6,9 +6,9 @@ from typing import Dict
 import pytest
 from solution import (
     find_new_direction,
+    find_new_waypoint,
     manhattan_distance,
     part1,
-    find_new_waypoint,
     part2,
 )
 

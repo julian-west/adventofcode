@@ -1,10 +1,9 @@
 """Day 18 solution"""
-from typing import List, Dict, Callable
-
+import operator
 import re
 from collections import deque
-import operator
 from math import prod
+from typing import Callable, Dict, List
 
 OPS = {"+": operator.add, "*": operator.mul}
 

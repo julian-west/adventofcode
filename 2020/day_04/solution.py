@@ -14,8 +14,9 @@ Part 1 requirements:
 # pid (Passport ID) - a nine-digit number, including leading zeroes.
 # cid (Country ID) - ignored, missing or not.
 """
-import numpy as np
 import re
+
+import numpy as np
 
 
 def load_input(file):
@@ -64,7 +65,7 @@ def check_eyr(eyr):
 def check_hgt(hgt):
 
     try:
-        number, unit = re.match("(\d+)(\w+)", hgt).groups()
+        number, unit = re.match(r"(\d+)(\w+)", hgt).groups()
 
         if unit == "cm":
             assert int(number) >= 150 and int(number) <= 193
@@ -74,7 +75,7 @@ def check_hgt(hgt):
             return True
         else:
             return False
-    except:
+    except Exception:
         return False
 
 
@@ -94,7 +95,7 @@ def check_ecl(ecl):
 
 
 def check_pid(pid):
-    if re.match("^\d{9}$", pid):
+    if re.match(r"^\d{9}$", pid):
         return True
     else:
         return False

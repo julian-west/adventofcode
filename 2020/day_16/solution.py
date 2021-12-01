@@ -1,7 +1,8 @@
 """Day 16 Advent of Code"""
 
-from typing import Tuple, Dict, List, Set
 import re
+from typing import Dict, List, Set, Tuple
+
 import numpy as np
 
 
@@ -57,7 +58,7 @@ def part1(rules: Dict, nearby_tickets: List[List[int]]) -> int:
     invalid_numbers = []
     for ticket in nearby_tickets:
         for value in ticket:
-            if not value in valid_numbers:
+            if value not in valid_numbers:
                 invalid_numbers.append(value)
 
     return sum(invalid_numbers)

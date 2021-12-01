@@ -1,8 +1,8 @@
 """
 Day 13 adventofcode
 """
-from typing import Tuple, List
 from functools import reduce
+from typing import List, Tuple
 
 
 def load_input(file: str) -> Tuple[int, List[str]]:

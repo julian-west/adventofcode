@@ -1,9 +1,10 @@
 """Day 17 solution"""
 
-from typing import Tuple, Iterable
 from itertools import product
-from tqdm import tqdm
+from typing import Iterable, Tuple
+
 import numpy as np
+from tqdm import tqdm
 
 
 def find_neighbours(coords: Tuple, matrix_shape: Tuple) -> Iterable:
