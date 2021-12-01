@@ -12,5 +12,11 @@ clean-test:
 	rm -f .coverage
 	rm -fr htmlcov/
 
-# test:
-# 	pytest
+test:
+	pytest
+
+lint:
+	black .
+	isort .
+	mypy 2021
+	flake8 .
