@@ -49,7 +49,6 @@ class Board:
     def _check_bingo(self):
         """Check if there is a bingo"""
         if max(self.tracker.row) == self.dim or max(self.tracker.col) == self.dim:
-            print("BINGO!")
             self.bingo = True
 
 
@@ -70,6 +69,19 @@ class Game:
             else:
                 continue
             break
+
+    def play_to_lose(self):
+        winning_order = {}
+        while len(winning_order) < len(self.boards):
+            for round, val in enumerate(self.draws):
+                for index, board in enumerate(self.boards):
+                    if index not in winning_order:
+                        board.play(val)
+                        if board.bingo:
+                            winning_order[index] = val
+
+        self.winner = list(winning_order.keys())[-1]
+        self._create_winners_report(round, winning_order[self.winner])
 
     def _create_winners_report(self, round: int, last_number: int):
         sum_unmarked = self._get_sum_unmarked(self.boards[self.winner])
@@ -108,6 +120,12 @@ def part_1(boards: list[list[list[int]]], draws: list[int]) -> int:
     return game.winners_report.final_score
 
 
+def part_2(boards: list[list[list[int]]], draws: list[int]) -> int:
+    game = Game(boards, draws)
+    game.play_to_lose()
+    return game.winners_report.final_score
+
+
 if __name__ == "__main__":
     with open("input.txt", "r") as input:
         line_breaks = input.read().strip().split("\n\n")
@@ -117,3 +135,6 @@ if __name__ == "__main__":
 
     part_1_ans = part_1(boards, draws)
     print(part_1_ans)
+
+    part_2_ans = part_2(boards, draws)
+    print(part_2_ans)

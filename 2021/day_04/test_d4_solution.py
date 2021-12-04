@@ -1,7 +1,7 @@
 """Day 4 Solution Tests"""
 
 import pytest
-from d4_solution import Board, format_board_input, part_1
+from d4_solution import Board, format_board_input, part_1, part_2
 
 # fmt:off
 draws = [7, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24, 10, 16, 13, 6, 15, 25, 12, 22, 18, 20, 8, 19, 3, 26, 1]
@@ -83,3 +83,7 @@ def test_play(board, rounds, draws: list[int], expected: list[int]):
 
 def test_part_1():
     assert part_1(boards, draws) == 4512
+
+
+def test_part_2():
+    assert part_2(boards, draws) == 1924
