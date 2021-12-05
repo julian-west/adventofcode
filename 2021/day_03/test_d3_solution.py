@@ -56,9 +56,9 @@ def test_rating_binary(values, criterion, expected):
     assert find_rating_binary(values, criterion=criterion) == expected
 
 
-def test_part_2():
-    assert part_2(example) == 23
-
-
 def test_part_1():
     assert part_1(example) == 198
+
+
+def test_part_2():
+    assert part_2(example) == 230
