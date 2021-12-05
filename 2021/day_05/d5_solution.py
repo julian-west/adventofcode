@@ -19,49 +19,60 @@ def process_input_line(line: str) -> list[tuple[int, int]]:
     return coordinates
 
 
-def get_interim_straight_line_coordinates(
-    start: tuple[int, int],
-    finish: tuple[int, int],
-) -> list[tuple[int, int]]:
-    """Get list of coordinates between two points"""
-    fixed_axis = 0 if start[0] == finish[0] else 1
-    floating_axis = 0 if fixed_axis == 1 else 1
-    direction = -1 if finish[floating_axis] - start[floating_axis] < 0 else 1
+def bresenham_algo(x0: int, y0: int, x1: int, y1: int) -> list[tuple[int, int]]:
+    """Bresenham algo for finding point on a line
 
-    interim_coords = []
-    for val in range(
-        start[floating_axis], finish[floating_axis] + direction, direction
-    ):
-        coord = [0, 0]
-        coord[fixed_axis] = start[fixed_axis]
-        coord[floating_axis] = val
-        interim_coords.append(tuple(coord))
+    Based off:
+        en.wikipedia.org/wiki/Bresenham's_line_algorithm
+        and
+        https://github.com/encukou/bresenham/blob/master/bresenham.py
+    """
+    dx = x1 - x0
+    dy = y1 - y0
 
-    return interim_coords
+    xsign = 1 if dx > 0 else -1
+    ysign = 1 if dy > 0 else -1
+
+    dx = abs(dx)
+    dy = abs(dy)
+
+    if dx > dy:
+        xx, xy, yx, yy = xsign, 0, 0, ysign
+    else:
+        dx, dy = dy, dx
+        xx, xy, yx, yy = 0, ysign, xsign, 0
+
+    D = 2 * dy - dx
+    y = 0
+
+    for x in range(dx + 1):
+        yield x0 + x * xx + y * yx, y0 + x * xy + y * yy
+        if D >= 0:
+            y += 1
+            D -= 2 * dx
+        D += 2 * dy
 
 
 def draw_lines(dim: int, coordinates: list[list[tuple[int, int]]]) -> list[list[int]]:
     """Draw lines on a grid"""
     grid = [[0] * dim for _ in range(dim)]
-
-    for coordinate in coordinates:
-        if coordinate[0][0] == coordinate[1][0] or coordinate[0][1] == coordinate[1][1]:
-            interim_coords = get_interim_straight_line_coordinates(
-                coordinate[0], coordinate[1]
-            )
-
-            for coord in interim_coords:
-                grid[coord[1]][coord[0]] += 1
-
+    for (x0, y0), (x1, y1) in coordinates:
+        interim_coords = list(bresenham_algo(x0, y0, x1, y1))
+        for coord in interim_coords:
+            grid[coord[1]][coord[0]] += 1
     return grid
 
 
-def part_1(coordinates: list[list[tuple[int, int]]]) -> int:
-    """Calculate number of points where at least two lines overlap"""
-    dim = find_max_coordinate(coordinates) + 1
-    grid = draw_lines(dim, coordinates)
+def calc_overlapping(grid: list[list[int]]) -> int:
+    """Calculate number of overlapping lines"""
     flatten = [item for sublist in grid for item in sublist]
     return sum(i > 1 for i in flatten)
+
+
+def solve(dim: int, coordinates: list[list[tuple[int, int]]]) -> int:
+    """Calculate number of points where at least two lines overlap"""
+    grid = draw_lines(dim, coordinates)
+    return calc_overlapping(grid)
 
 
 if __name__ == "__main__":
@@ -69,5 +80,13 @@ if __name__ == "__main__":
         lines = input.readlines()
         coordinates = [process_input_line(line) for line in lines]
 
-    part_1_ans = part_1(coordinates)
+    dim = find_max_coordinate(coordinates) + 1
+    straightline_coords = list(
+        filter(lambda x: x[0][0] == x[1][0] or x[0][1] == x[1][1], coordinates)
+    )
+
+    part_1_ans = solve(dim, straightline_coords)
     print(part_1_ans)
+
+    part_2_ans = solve(dim, coordinates)
+    print(part_2_ans)

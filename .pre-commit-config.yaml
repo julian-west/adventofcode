@@ -38,3 +38,10 @@ repos:
     language: system
     entry: flake8
     types: [python]
+
+  - id: pytest
+    name: pytest
+    stages: [commit]
+    language: system
+    entry: pytest . --ignore "2020"
+    types: [python]
