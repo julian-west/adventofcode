@@ -44,4 +44,5 @@ repos:
     stages: [commit]
     language: system
     entry: pytest . --ignore "2020"
+    pass_filenames: false
     types: [python]
