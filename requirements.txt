@@ -3,6 +3,7 @@ flake8
 isort
 matplotlib
 mypy
+networkx
 numpy
 pre-commit
 pytest
