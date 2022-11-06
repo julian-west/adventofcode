@@ -1,4 +1,4 @@
-# Advent of Code Challenge
+# Advent of Code Challenge 🎄
 
 Python solutions for each day along with some implementations in random other languages sprinkled in 😄
 
