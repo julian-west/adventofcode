@@ -4,6 +4,8 @@ Python solutions for each day along with some implementations in random other la
 
 https://adventofcode.com/
 
+https://engineeringfordatascience.com
+
 ## Getting Started
 
 Create Virtual Environment
@@ -22,5 +24,5 @@ pre-commit install
 
 Running tests:
 ```
-pytest 2021
+pytest 2022
 ```
