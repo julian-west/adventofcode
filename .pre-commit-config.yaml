@@ -43,6 +43,6 @@ repos:
     name: pytest
     stages: [commit]
     language: system
-    entry: pytest . --ignore "2020"
+    entry: pytest . --ignore 2020 --ignore 2021
     pass_filenames: false
     types: [python]
