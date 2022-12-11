@@ -1,7 +1,7 @@
 """Day 3 solution"""
 
 import string
-from typing import Protocol, Any
+from typing import Any, Protocol
 
 
 class GroupFunc(Protocol):
@@ -22,6 +22,7 @@ def get_priority(letter: str) -> int:
 def split_into_compartments(lst):
     def midpoint(lst):
         return len(lst) // 2
+
     return [[i[: midpoint(i)], i[midpoint(i) :]] for i in lst]
 
 
